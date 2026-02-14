@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 // ================== IMAGE STORAGE ==================
 const storage = multer.diskStorage({
-    destination: "./upload/images",
+    destination: "/tmp",   // Vercel writable folder
     filename: (req, file, cb) => {
         cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
     }
@@ -36,14 +36,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Static folder
-app.use("/images", express.static("upload/images"));
-
 // Upload API
 app.post("/upload", upload.single("product"), (req, res) => {
     res.json({
         success: 1,
-        image_url: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+        image_url: `${req.protocol}://${req.get("host")}/${req.file.filename}`
     });
 });
 
