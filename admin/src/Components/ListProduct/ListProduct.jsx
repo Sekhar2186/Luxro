@@ -6,7 +6,7 @@ const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch('http://localhost:4000/allproducts')
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/allproducts`)
       .then((res) => res.json())
       .then((data) => { setAllProducts(data) });
   }
@@ -15,14 +15,14 @@ const ListProduct = () => {
     fetchInfo();
   }, [])
 
-  const remove_product = async (id)=>{
-    await fetch('http://localhost:4000/removeproduct',{
-      method:'POST',
-      headers:{
-        Accept:'application/json',
-        'Content-Type':'application/json'
+  const remove_product = async (id) => {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/removeproduct`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       },
-      body:JSON.stringify({id:id})
+      body: JSON.stringify({ id: id })
     })
     await fetchInfo();
   }
@@ -46,9 +46,9 @@ const ListProduct = () => {
             <p>${product.old_price}</p>
             <p>${product.new_price}</p>
             <p>{product.category}</p>
-            <img onClick={()=>{remove_product(product.id)}} src={cross_icon} alt="" className="listproduct-remove-icon" />
+            <img onClick={() => { remove_product(product.id) }} src={cross_icon} alt="" className="listproduct-remove-icon" />
           </div>
-          <hr/>
+            <hr />
           </>
         })}
       </div>
