@@ -10,10 +10,7 @@ const { type } = require("os");
 const { error } = require("console");
 
 app.use(express.json());
-app.use(cors({
-    origin: ["http://localhost:3000", "https://luxro-two.vercel.app"],
-    credentials: true,
-}));
+app.use(cors());
 
 // Database Connection With MongoDb 
 mongoose.connect("mongodb+srv://somasekharkurapati6423:somasekhar6423@cluster0.t3hjarn.mongodb.net/e-commerce")
